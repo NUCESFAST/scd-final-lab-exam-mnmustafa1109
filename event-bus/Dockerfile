@@ -1,7 +1,6 @@
 FROM node:21
 LABEL authors="mnmustafa1109"
 
-
 WORKDIR /usr/src/app
 
 COPY package*.json ./
@@ -9,6 +8,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 4002
+EXPOSE 4009
 
-CMD ["npm", "start"]
+CMD ["node", "index.js"]
