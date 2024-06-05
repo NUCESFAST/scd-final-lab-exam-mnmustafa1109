@@ -4,7 +4,7 @@ pipeline {
     environment {
         registry = "mnmustafa1109/scd-lab-final"
         DOCKER_CREDENTIALS = '0eae42a5-0efa-44e8-b82a-fdeea921b6ac'
-        dockerImages = ["auth-service", "classroom-service", "post-service", "event-bus", "client"]
+        dockerImages = ['auth-service', 'classroom-service', 'post-service', 'event-bus', 'client']
     }
 
     stages {
@@ -13,8 +13,8 @@ pipeline {
                 script {
                     // Loop through each service and build Docker image
                     dockerImages.each { service ->
-                        def imageTag = "$registry-$service:$BUILD_NUMBER"
-                        docker.build("-t $imageTag ./path/to/$service")
+                        def imageTag = "${registry}-${service}:${BUILD_NUMBER}"
+                        docker.build("-t ${imageTag} ./path/to/${service}")
                     }
                 }
             }
@@ -23,10 +23,10 @@ pipeline {
             steps {
                 script {
                     dockerImages.each { service ->
-                        def imageTag = "$registry-$service:$BUILD_NUMBER"
+                        def imageTag = "${registry}-${service}:${BUILD_NUMBER}"
                         docker.withRegistry('', DOCKER_CREDENTIALS) {
                             // Push the built image to Docker Hub
-                            docker.image(imageTag).push()
+                            docker.image("${imageTag}").push()
                         }
                     }
                 }
