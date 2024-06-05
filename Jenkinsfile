@@ -11,19 +11,19 @@ pipeline {
             steps {
                 script {
                     // Build auth-service Docker image
-                    docker.build("-t ${registry}-auth-service:${BUILD_NUMBER} ./Auth")
+                    dockerAuth = docker.build registry + ":auth-service-${BUILD_NUMBER}", './Auth'
 
                     // Build classroom-service Docker image
-                    docker.build("-t ${registry}-classroom-service:${BUILD_NUMBER} ./Classrooms")
+                    dockerClassroom = docker.build registry + ":classroom-service-${BUILD_NUMBER}", './Classroom'
 
                     // Build post-service Docker image
-                    docker.build("-t ${registry}-post-service:${BUILD_NUMBER} ./Post")
+                    dockerPost = docker.build registry + ":post-service-${BUILD_NUMBER}", './Post'
 
                     // Build event-bus Docker image
-                    docker.build("-t ${registry}-event-bus:${BUILD_NUMBER} ./event-bus")
+                    dockerEventBus = docker.build registry + ":event-bus-${BUILD_NUMBER}", './EventBus'
 
                     // Build client Docker image
-                    docker.build("-t ${registry}-client:${BUILD_NUMBER} ./client")
+                    dockerClient = docker.build registry + ":client-${BUILD_NUMBER}", './Client'
                 }
             }
         }
@@ -31,28 +31,13 @@ pipeline {
             steps {
                 script {
                     // Push auth-service Docker image
-                    docker.withRegistry('', DOCKER_CREDENTIALS) {
-                        docker.image("${registry}-auth-service:${BUILD_NUMBER}").push()
-                    }
-
-                    // Push classroom-service Docker image
-                    docker.withRegistry('', DOCKER_CREDENTIALS) {
-                        docker.image("${registry}-classroom-service:${BUILD_NUMBER}").push()
-                    }
-
-                    // Push post-service Docker image
-                    docker.withRegistry('', DOCKER_CREDENTIALS) {
-                        docker.image("${registry}-post-service:${BUILD_NUMBER}").push()
-                    }
-
-                    // Push event-bus Docker image
-                    docker.withRegistry('', DOCKER_CREDENTIALS) {
-                        docker.image("${registry}-event-bus:${BUILD_NUMBER}").push()
-                    }
-
-                    // Push client Docker image
-                    docker.withRegistry('', DOCKER_CREDENTIALS) {
-                        docker.image("${registry}-client:${BUILD_NUMBER}").push()
+                   docker.withRegistry('', DOCKER_CREDENTIALS) {
+                        // Push the built image to Docker Hub
+                        dockerAuth.push()
+                        dockerClassroom.push()
+                        dockerPost.push()
+                        dockerEventBus.push()
+                        dockerClient.push()
                     }
                 }
             }
