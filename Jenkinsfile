@@ -10,20 +10,31 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 script {
-                    // Build auth-service Docker image
-                    dockerAuth = docker.build registry + ":auth-service-${BUILD_NUMBER}", './Auth'
+                   // Build auth-service Docker image
+                    dir('Auth') {
+                        dockerAuth = docker.build("${registry}:auth-service-${BUILD_NUMBER}")
+                    }
 
                     // Build classroom-service Docker image
-                    dockerClassroom = docker.build registry + ":classroom-service-${BUILD_NUMBER}", './Classroom'
+                    dir('Classrooms') {
+                        dockerClassroom = docker.build("${registry}:classroom-service-${BUILD_NUMBER}")
+                    }
 
                     // Build post-service Docker image
-                    dockerPost = docker.build registry + ":post-service-${BUILD_NUMBER}", './Post'
+                    dir('Post') {
+                        dockerPost = docker.build("${registry}:post-service-${BUILD_NUMBER}")
+                    }
 
                     // Build event-bus Docker image
-                    dockerEventBus = docker.build registry + ":event-bus-${BUILD_NUMBER}", './EventBus'
+                    dir('event-bus') {
+                        dockerEventBus = docker.build("${registry}:event-bus-${BUILD_NUMBER}")
+                    }
 
                     // Build client Docker image
-                    dockerClient = docker.build registry + ":client-${BUILD_NUMBER}", './Client'
+                    dir('client') {
+                        dockerClient = docker.build("${registry}:client-${BUILD_NUMBER}")
+                    }
+
                 }
             }
         }
