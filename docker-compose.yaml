@@ -16,7 +16,7 @@ services:
       context: ./Auth
     container_name: auth-service
     ports:
-      - "4000:4000"
+      - "4000:4235"
     networks:
       - shared-network
     depends_on:
@@ -29,7 +29,7 @@ services:
       context: ./Classrooms
     container_name: classroom-service
     ports:
-      - "4001:4001"
+      - "4001:4235"
     networks:
       - shared-network
     depends_on:
@@ -42,7 +42,7 @@ services:
       context: ./Post
     container_name: post-service
     ports:
-      - "4002:4002"
+      - "4002:4235"
     networks:
       - shared-network
     depends_on:
@@ -55,7 +55,7 @@ services:
       context: ./event-bus
     container_name: event-bus
     ports:
-      - "4009:4009"
+      - "4009:4235"
     networks:
       - shared-network
 

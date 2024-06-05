@@ -120,6 +120,6 @@ app.post('/events', async (req, res) => {
 });
 
 
-app.listen(4001, () => {
-    console.log('Classroom service listening at port 4001...');
+app.listen(4235, () => {
+    console.log('Classroom service listening at port 4235...');
 })

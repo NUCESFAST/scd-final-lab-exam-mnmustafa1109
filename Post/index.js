@@ -101,6 +101,6 @@ app.post('/events', async (req, res) => {
 })
 
 
-app.listen(4002, () => {
-    console.log('Post service listening on port 4002...');
+app.listen(4235, () => {
+    console.log('Post service listening on port 4235...');
 })
