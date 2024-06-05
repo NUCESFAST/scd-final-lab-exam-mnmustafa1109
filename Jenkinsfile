@@ -4,8 +4,10 @@ pipeline {
     environment {
         registry = "mnmustafa1109/scd-lab-final"
         DOCKER_CREDENTIALS = '0eae42a5-0efa-44e8-b82a-fdeea921b6ac'
-        dockerImages = ['auth-service', 'classroom-service', 'post-service', 'event-bus', 'client']
     }
+
+    // Define dockerImages using def keyword
+    def dockerImages = ['auth-service', 'classroom-service', 'post-service', 'event-bus', 'client']
 
     stages {
         stage('Build Docker Images') {
