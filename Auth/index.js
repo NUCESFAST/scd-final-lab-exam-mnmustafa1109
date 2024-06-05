@@ -34,7 +34,7 @@ app.post('/signup', async (req, res) => {
         });
     });
 
-    await axios.post('http://localhost:4000/events', {
+    await axios.post('http://localhost:4009/events', {
         type: 'UserCreated',
         data: {
             id, email
