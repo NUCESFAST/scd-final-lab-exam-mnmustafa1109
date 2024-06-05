@@ -15,7 +15,7 @@ const Posts = () => {
 
   const createPost = async (e) => {
     e.preventDefault();
-    const res = await axios.post('http://post-service:4235/create_post', { classId, postTitle });
+    const res = await axios.post('http://localhost:4002/create_post', { classId, postTitle });
     setPosts(res.data);
     setPostTitle("");
 
@@ -33,7 +33,7 @@ const Posts = () => {
     setComments(comments);
 
     // make add_comment axios request here
-    await axios.post('http://post-service:4235/add_comment', {
+    await axios.post('http://localhost:4002/add_comment', {
       id: postId,
       class: classId,
       text: comments[postId]

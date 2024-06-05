@@ -34,7 +34,7 @@ app.post('/signup', async (req, res) => {
         });
     });
 
-    await axios.post('http://event-bus:4009/events', {
+    await axios.post('http://event-bus:4235/events', {
         type: 'UserCreated',
         data: {
             id, email

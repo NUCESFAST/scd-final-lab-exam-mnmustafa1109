@@ -29,7 +29,7 @@ app.post('/create_post', async (req, res) => {
         db.close();
     });
 
-    await axios.post('http://event-bus:4009/events', {
+    await axios.post('http://event-bus:4235/events', {
         type: 'PostCreated',
         data: 'postid'
     });
