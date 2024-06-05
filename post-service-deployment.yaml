@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: post-service
+  template:
+    metadata:
+      labels:
+        app: post-service
+    spec:
+      containers:
+      - name: post-service
+        image: mnmustafa1109/scd-lab-final:post-service-39
+        ports:
+        - containerPort: 4235
+        env:
+        - name: MONGO_URL
+          value: "mongodb://mongodb:27017/ClassroomMS" # Update if needed
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: post-service
+spec:
+  selector:
+    app: post-service
+  ports:
+  - protocol: TCP
+    port: 4002
+    targetPort: 4235
