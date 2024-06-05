@@ -6,13 +6,13 @@ pipeline {
         DOCKER_CREDENTIALS = '0eae42a5-0efa-44e8-b82a-fdeea921b6ac'
     }
 
-    // Define dockerImages using def keyword
-    def dockerImages = ['auth-service', 'classroom-service', 'post-service', 'event-bus', 'client']
-
     stages {
         stage('Build Docker Images') {
             steps {
                 script {
+                    // Define dockerImages inside the script block
+                    def dockerImages = ['auth-service', 'classroom-service', 'post-service', 'event-bus', 'client']
+
                     // Loop through each service and build Docker image
                     dockerImages.each { service ->
                         def imageTag = "${registry}-${service}:${BUILD_NUMBER}"
@@ -24,6 +24,7 @@ pipeline {
         stage('Push Docker Images') {
             steps {
                 script {
+                    def dockerImages = ['auth-service', 'classroom-service', 'post-service', 'event-bus', 'client']
                     dockerImages.each { service ->
                         def imageTag = "${registry}-${service}:${BUILD_NUMBER}"
                         docker.withRegistry('', DOCKER_CREDENTIALS) {
